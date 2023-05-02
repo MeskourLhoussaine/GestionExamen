@@ -19,7 +19,7 @@ import ma.resto.app.service.PhotoService;
 public class PhotoController {
 	@Autowired
 	private PhotoService photoService;
-
+//dzczc
 	@PostMapping(value = "/save")
 	public Photo save(@RequestBody Photo o) {
 		return photoService.save(o);
