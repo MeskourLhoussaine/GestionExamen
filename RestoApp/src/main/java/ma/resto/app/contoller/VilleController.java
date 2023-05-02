@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+
 import ma.resto.app.entites.Resto;
 import ma.resto.app.entites.Ville;
 import ma.resto.app.entites.Zone;
@@ -24,17 +25,28 @@ public class VilleController {
 	@Autowired
 	private VilleService villeService;
 
-	@PostMapping(value = "/save")
+	@PostMapping(value = "/")
 	public Ville save(@RequestBody Ville o) {
 		return villeService.save(o);
 	}
 
+	/*
 	@PutMapping(value = "/update")
 	public Ville update(@RequestBody Ville o) {
 		return villeService.update(o);
 	}
+*/
+	 @PutMapping("/{id}")
+	    public Ville update(@PathVariable Long id, @RequestBody Ville ville) {
+	        Ville existingVille = villeService.findById(0);
+	        if (existingVille != null) {
+	            existingVille.setNom(ville.getNom());
+	            return villeService.save(existingVille);
+	        }
+	        return null;
+	    }
 
-	@DeleteMapping(value = "/delete")
+	@DeleteMapping(value = "/{id}")
 	public void delete(@RequestBody Ville o) {
 		villeService.delete(o);
 	}
@@ -44,7 +56,7 @@ public class VilleController {
 		return villeService.findById(Integer.parseInt(id));
 	}
 
-	@GetMapping(value = "/")
+	@GetMapping(value = " ")
 	public List<Ville> findAll() {
 		return villeService.findAll();
 	}
