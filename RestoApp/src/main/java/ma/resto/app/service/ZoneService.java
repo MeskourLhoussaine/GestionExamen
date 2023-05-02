@@ -1,0 +1,42 @@
+package ma.resto.app.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import ma.resto.app.IDao.IMetier;
+import ma.resto.app.entites.Zone;
+import ma.resto.app.repository.ZoneRepository;
+
+@Service
+public class ZoneService implements IMetier<Zone> {
+	@Autowired
+	private ZoneRepository zoneRepository;
+
+	@Override
+	public Zone save(Zone o) {
+		return this.zoneRepository.save(o);
+	}
+
+	@Override
+	public Zone update(Zone o) {
+		return this.zoneRepository.save(o);
+	}
+
+	@Override
+	public void delete(Zone o) {
+		this.zoneRepository.delete(o);
+	}
+
+	@Override
+	public Zone findById(int id) {
+		return this.zoneRepository.findById(id);
+	}
+
+	@Override
+	public List<Zone> findAll() {
+		return this.zoneRepository.findAll();
+	}
+
+}
