@@ -11,6 +11,10 @@ import ma.resto.app.repository.ZoneRepository;
 
 @Service
 public class ZoneService implements IMetier<Zone> {
+	
+	public List<Zone> getZonesByVilleId(Long villeId) {
+		return zoneRepository.findByVilleId(villeId);
+	}
 	@Autowired
 	private ZoneRepository zoneRepository;
 
@@ -37,6 +41,12 @@ public class ZoneService implements IMetier<Zone> {
 	@Override
 	public List<Zone> findAll() {
 		return this.zoneRepository.findAll();
+	}
+
+	@Override
+	public void delete(int id) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

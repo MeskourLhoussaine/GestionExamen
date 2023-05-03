@@ -12,4 +12,6 @@ public interface IMetier<T> {
 	public T findById(int id);
 
 	public List<T> findAll();
+
+	void delete(int id);
 }

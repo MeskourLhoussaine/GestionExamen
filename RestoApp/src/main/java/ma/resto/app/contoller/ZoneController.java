@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import ma.resto.app.entites.Ville;
 import ma.resto.app.entites.Zone;
 import ma.resto.app.service.ZoneService;
 
@@ -25,12 +26,22 @@ public class ZoneController {
 	public Zone save(@RequestBody Zone o) {
 		return zoneService.save(o);
 	}
-
+	
+	 @PutMapping("/{id}")
+	    public Zone update(@PathVariable int id, @RequestBody Zone zone) {
+	        Zone existingZone = zoneService.findById(id);
+	        if (existingZone != null) {
+	            existingZone.setNom(zone.getNom());
+	            return zoneService.update(existingZone);
+	        }
+	        return null;
+	    }
+/*
 	@PutMapping(value = "/update")
 	public Zone update(@RequestBody Zone o) {
 		return zoneService.update(o);
 	}
-
+*/
 	@DeleteMapping(value = "/delete")
 	public void delete(@RequestBody Zone o) {
 		zoneService.delete(o);
@@ -41,9 +52,12 @@ public class ZoneController {
 		return zoneService.findById(Integer.parseInt(id));
 	}
 
-	@GetMapping(value = "/")
+	@GetMapping(value = "")
 	public List<Zone> findAll() {
 		return zoneService.findAll();
 	}
-
+	@GetMapping("/ville/{villeId}")
+	public List<Zone> getZonesByVilleId(@PathVariable Long villeId) {
+		return zoneService.getZonesByVilleId(villeId);
+	}
 }

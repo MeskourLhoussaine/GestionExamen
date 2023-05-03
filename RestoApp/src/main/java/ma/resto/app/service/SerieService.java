@@ -39,4 +39,10 @@ public class SerieService implements IMetier<Serie> {
 		return this.serieRepository.findAll();
 	}
 
+	@Override
+	public void delete(int id) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

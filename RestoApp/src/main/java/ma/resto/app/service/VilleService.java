@@ -25,8 +25,8 @@ public class VilleService implements IMetier<Ville> {
 	}
 
 	@Override
-	public void delete(Ville o) {
-		this.villeRepository.delete(o);
+	public void delete(int id) {
+		this.villeRepository.deleteById(id);;
 	}
 
 	@Override
@@ -38,5 +38,13 @@ public class VilleService implements IMetier<Ville> {
 	public List<Ville> findAll() {
 		return this.villeRepository.findAll();
 	}
+
+	@Override
+	public void delete(Ville o) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
 
 }

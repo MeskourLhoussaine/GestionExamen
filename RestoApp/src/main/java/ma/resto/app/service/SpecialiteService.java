@@ -39,4 +39,10 @@ public class SpecialiteService implements IMetier<Specialite> {
 		return this.specialiteRepository.findAll();
 	}
 
+	@Override
+	public void delete(int id) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

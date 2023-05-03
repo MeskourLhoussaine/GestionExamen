@@ -71,7 +71,7 @@ const ZoneManagementComponent = () => {
     const handleOpenModal = (zone) => {
         if (zone) {
             setZoneId(zone.id);
-            setZoneName(zone.nom);
+            setZoneName(zone.name);
             setZoneVille(zone.ville);
         } else {
             setZoneId('');
@@ -90,11 +90,28 @@ const ZoneManagementComponent = () => {
                 handleOpenModal()}>
                 Add Zone
             </button>
-            <table className="table "  >
+            <div className="mt-3">
+                <input
+                    type="text"
+                    className="form-control mr-2 d-inline-block"
+                    value={zoneName}
+                    onChange={(e) => setZoneName(e.target.value)}
+                />
+                {zoneId ? (
+                    <button className="btn btn-success" onClick={ handleEditZone }>
+                        Update Zone
+                    </button>
+                ) : (
+                    <button className="btn btn-primary" onClick={handleAddZone}>
+                        Add Zone
+                    </button>
+                )}
+            </div>
+            <table className="table" >
                 <thead>
                     <tr>
                         <th>Name</th>
-                        <th>Ville</th>
+                        <th>City</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -104,11 +121,11 @@ const ZoneManagementComponent = () => {
                             <td>{zone.nom}</td>
                             <td>{zone.ville.nom}</td>
                             <td>
-                                <button className="btn btn-secondary me-2"
+                                <button className="btn btn-primary btn-sm mx-1"
                                     onClick={() => handleOpenModal(zone)}>
                                     Edit
                                 </button>
-                                <button className="btn btn-danger"
+                                <button className="btn btn-danger btn-sm"
                                     onClick={() => handleDeleteZone(zone.id)}>
                                     Delete
                                 </button>

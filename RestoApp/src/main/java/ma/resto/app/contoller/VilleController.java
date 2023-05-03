@@ -31,24 +31,25 @@ public class VilleController {
 	}
 
 	/*
-	@PutMapping(value = "/update")
+	@PutMapping(value = "/{id}")
 	public Ville update(@RequestBody Ville o) {
 		return villeService.update(o);
 	}
-*/
-	 @PutMapping("/{id}")
-	    public Ville update(@PathVariable Long id, @RequestBody Ville ville) {
-	        Ville existingVille = villeService.findById(0);
+	*/
+
+	  @PutMapping("/{id}")
+	    public Ville update(@PathVariable int id, @RequestBody Ville ville) {
+	        Ville existingVille = villeService.findById(id);
 	        if (existingVille != null) {
 	            existingVille.setNom(ville.getNom());
-	            return villeService.save(existingVille);
+	            return villeService.update(existingVille);
 	        }
 	        return null;
 	    }
 
 	@DeleteMapping(value = "/{id}")
-	public void delete(@RequestBody Ville o) {
-		villeService.delete(o);
+	public void delete(@PathVariable int id) {
+		villeService.findById(id);
 	}
 
 	@GetMapping(value = "/{id}")

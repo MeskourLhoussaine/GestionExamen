@@ -39,4 +39,10 @@ public class PhotoService implements IMetier<Photo> {
 		return this.photoRepository.findAll();
 	}
 
+	@Override
+	public void delete(int id) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
