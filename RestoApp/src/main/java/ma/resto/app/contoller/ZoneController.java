@@ -10,6 +10,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.springframework.web.bind.annotation.RequestBody;
 
 import ma.resto.app.entites.Ville;
@@ -21,30 +25,39 @@ import ma.resto.app.service.ZoneService;
 public class ZoneController {
 	@Autowired
 	private ZoneService zoneService;
-
-	@PostMapping(value = "/save")
-	public Zone save(@RequestBody Zone o) {
-		return zoneService.save(o);
+	/*
+	 * @PostMapping(value = "/save") public Zone save(@RequestBody Zone o) { return
+	 * zoneService.save(o); }*
+	 */
+	
+	
+	@PostMapping("/save")
+	public Zone save(@RequestBody Zone zone) throws JsonProcessingException {
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(zone);
+		System.out.println(json);
+		return this.zoneService.save(zone);
 	}
 	
-	 @PutMapping("/{id}")
-	    public Zone update(@PathVariable int id, @RequestBody Zone zone) {
-	        Zone existingZone = zoneService.findById(id);
-	        if (existingZone != null) {
-	            existingZone.setNom(zone.getNom());
-	            return zoneService.update(existingZone);
-	        }
-	        return null;
-	    }
-/*
-	@PutMapping(value = "/update")
-	public Zone update(@RequestBody Zone o) {
-		return zoneService.update(o);
+	
+
+	@PutMapping("/{id}")
+	public Zone update(@PathVariable int id, @RequestBody Zone zone) {
+		Zone existingZone = zoneService.findById(id);
+		if (existingZone != null) {
+			existingZone.setNom(zone.getNom());
+			return zoneService.update(existingZone);
+		}
+		return null;
 	}
-*/
-	@DeleteMapping(value = "/delete")
-	public void delete(@RequestBody Zone o) {
-		zoneService.delete(o);
+
+	/*
+	 * @PutMapping(value = "/update") public Zone update(@RequestBody Zone o) {
+	 * return zoneService.update(o); }
+	 */
+	@DeleteMapping(value = "/{id}")
+	public void delete(@PathVariable int id) {
+		this.zoneService.findById(id);
 	}
 
 	@GetMapping(value = "/{id}")
@@ -56,6 +69,7 @@ public class ZoneController {
 	public List<Zone> findAll() {
 		return zoneService.findAll();
 	}
+
 	@GetMapping("/ville/{villeId}")
 	public List<Zone> getZonesByVilleId(@PathVariable Long villeId) {
 		return zoneService.getZonesByVilleId(villeId);

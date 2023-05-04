@@ -28,10 +28,7 @@ public class ZoneService implements IMetier<Zone> {
 		return this.zoneRepository.save(o);
 	}
 
-	@Override
-	public void delete(Zone o) {
-		this.zoneRepository.delete(o);
-	}
+
 
 	@Override
 	public Zone findById(int id) {
@@ -45,6 +42,12 @@ public class ZoneService implements IMetier<Zone> {
 
 	@Override
 	public void delete(int id) {
+		this.zoneRepository.deleteById(id);
+		
+	}
+
+	@Override
+	public void delete(Zone o) {
 		// TODO Auto-generated method stub
 		
 	}

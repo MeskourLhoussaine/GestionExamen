@@ -86,10 +86,7 @@ const ZoneManagementComponent = () => {
     return (
         <div>
             <h1>Zone Management</h1>
-            <button className="btn btn-primary mb-3" onClick={() =>
-                handleOpenModal()}>
-                Add Zone
-            </button>
+           
             <div className="mt-3">
                 <input
                     type="text"
@@ -121,12 +118,12 @@ const ZoneManagementComponent = () => {
                             <td>{zone.nom}</td>
                             <td>{zone.ville.nom}</td>
                             <td>
-                                <button className="btn btn-primary btn-sm mx-1"
-                                    onClick={() => handleOpenModal(zone)}>
+                            <button className="btn btn-primary btn-sm " onClick={() =>
+                                    handleOpenModal(zone)}>
                                     Edit
                                 </button>
-                                <button className="btn btn-danger btn-sm"
-                                    onClick={() => handleDeleteZone(zone.id)}>
+                                <button className="btn btn-danger btn-sm" onClick={() =>
+                                    handleDeleteZone(zone.id)}>
                                     Delete
                                 </button>
                             </td>

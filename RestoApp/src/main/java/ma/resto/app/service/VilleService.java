@@ -26,7 +26,7 @@ public class VilleService implements IMetier<Ville> {
 
 	@Override
 	public void delete(int id) {
-		this.villeRepository.deleteById(id);;
+		this.villeRepository.deleteById(id);
 	}
 
 	@Override
