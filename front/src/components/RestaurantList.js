@@ -42,6 +42,7 @@ export default function RestaurantList() {
     useEffect(() => {
         axios.get("/api/restos").then((response) => {
             setrestaurants(response.data);
+            console.log(response.data);
         });
     }, []);
 

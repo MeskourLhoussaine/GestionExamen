@@ -97,7 +97,8 @@ export default function Footer() {
                             <a href="https://web.telegram.org/z/"><RiTelegramFill/></a>
                             <a href="https://web.telegram.org/z/"><RiFacebookCircleFill/></a>
                             <a href="https://web.telegram.org/z/"><AiFillTwitterCircle/></a>
-                            <a href="https://web.telegram.org/z/"><RiInstagramFill/></a></div>
+                            <a href="https://web.telegram.org/z/"><RiInstagramFill/></a>
+                            </div>
                     </div>
                     <p className="copyright">Team Restaurant © 2023</p>
                 </div>
@@ -109,6 +110,11 @@ export default function Footer() {
 
 import "../style/footer.css"
 import React from 'react';
+import { RiFacebookCircleFill } from "react-icons/ri";
+import { RiInstagramFill } from "react-icons/ri";
+import { AiFillTwitterCircle } from 'react-icons/ai';
+import { RiTelegramFill } from 'react-icons/ri';
+
 import {
   MDBFooter,
   MDBContainer,
@@ -121,7 +127,7 @@ import {
 export default function Footer() {
   return (
     
-    <MDBFooter className='bg-light text-center text-dark' style={{marginTop:"200px",backgroundColor:"#ff3333"}}>
+    <MDBFooter className='bg-danger text-center text-dark' style={{marginTop:"200px",backgroundColor:"#dc3545"}}>
         
       <MDBContainer className='p-4 pb-0'>
       <MDBRow>
@@ -129,10 +135,9 @@ export default function Footer() {
             <h5 className='text-uppercase'>Footer Content</h5>
 
             <p>
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste atque ea quis molestias.
-              Fugiat pariatur maxime quis culpa corporis vitae repudiandae aliquam voluptatem veniam, est
-              atque cumque eum delectus sint!
+            Our Restaurant Location App helps you find the nearest Restaurant in your area quickly and easily.
             </p>
+            <p>With detailed information on each Restaurant, including hours of operation, contact information, and services offered, our app makes it easy to find the right Restaurant for your needs.</p>
           </MDBCol>
 
           <MDBCol lg='3' md='6' className='mb-4 mb-md-0'>
@@ -140,24 +145,21 @@ export default function Footer() {
 
             <ul className='list-unstyled mb-0'>
               <li>
-                <a href='#!' className='text-dark'>
-                  Link 1
-                </a>
+              <a href="https://web.telegram.org/z/"><RiTelegramFill/></a>
+                            
+                            
+                            
+               
               </li>
               <li>
-                <a href='#!' className='text-dark'>
-                  Link 2
-                </a>
+              <a href="https://web.telegram.org/z/"><RiFacebookCircleFill/></a>  
+               
               </li>
               <li>
-                <a href='#!' className='text-dark'>
-                  Link 3
-                </a>
-              </li>
+                
+              </li><a href="https://web.telegram.org/z/"><AiFillTwitterCircle/></a>
               <li>
-                <a href='#!' className='text-dark'>
-                  Link 4
-                </a>
+              <a href="https://web.telegram.org/z/"><RiInstagramFill/></a>
               </li>
             </ul>
           </MDBCol>
@@ -165,28 +167,11 @@ export default function Footer() {
           <MDBCol lg='3' md='6' className='mb-4 mb-md-0'>
             <h5 className='text-uppercase mb-0'>Links</h5>
 
-            <ul className='list-unstyled'>
-              <li>
-                <a href='#!' className='text-dark'>
-                  Link 1
-                </a>
-              </li>
-              <li>
-                <a href='#!' className='text-dark'>
-                  Link 2
-                </a>
-              </li>
-              <li>
-                <a href='#!' className='text-dark'>
-                  Link 3
-                </a>
-              </li>
-              <li>
-                <a href='#!' className='text-dark'>
-                  Link 4
-                </a>
-              </li>
-            </ul>
+            <ul>
+                                <li><h6 >Phone: +212 612 450 316</h6></li>
+                                <li><h6 >Email: locationRestaurantapp.com</h6></li>
+                                <li><h6 >Address: 123 Marrakesh, Morocco</h6></li>
+                            </ul>
           </MDBCol>
         </MDBRow>
         <section className='mb-4'>

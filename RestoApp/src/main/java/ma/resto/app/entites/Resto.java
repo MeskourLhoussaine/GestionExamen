@@ -40,10 +40,8 @@ public class Resto {
 	private String nom;
 	private String rank;
 	@ManyToOne
-	@JsonIgnore
 	private Zone zone;
 	@ManyToOne
-	@JsonIgnore
 	private Serie serie;
 	@ManyToOne
 	@JsonIgnore

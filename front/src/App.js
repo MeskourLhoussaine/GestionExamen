@@ -18,11 +18,13 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+import Navbar from "./components/Navbar";
+
 
 function App() {
   return (
     <Router>
-      <Header />
+      <Navbar/>
       <div className="main-wrapper">
         <Routes>
         <Route path="/" element={<Home />} />
