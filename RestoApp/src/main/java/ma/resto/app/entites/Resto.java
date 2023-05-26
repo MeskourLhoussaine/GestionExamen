@@ -31,11 +31,10 @@ public class Resto {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String adresse;
-	@Temporal(TemporalType.TIME)
-	private Date heureOuvert;
-	@Temporal(TemporalType.TIME)
-	private Date heureClose;
-	private String jourOverture;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dateFermeture;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dateOuverture;
 	private double longitude;
 	private double latitude;
 	private String nom;
@@ -56,4 +55,5 @@ public class Resto {
 	@OneToMany(mappedBy = "resto")
 	@JsonIgnore
 	private List<Photo> photos;
+
 }

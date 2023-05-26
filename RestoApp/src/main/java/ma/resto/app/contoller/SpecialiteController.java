@@ -41,7 +41,7 @@ public class SpecialiteController {
 		return specialiteService.findById(Integer.parseInt(id));
 	}
 
-	@GetMapping(value = "/")
+	@GetMapping(value = "")
 	public List<Specialite> findAll() {
 		return specialiteService.findAll();
 	}

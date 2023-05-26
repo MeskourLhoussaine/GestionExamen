@@ -1,13 +1,20 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
 import Modal from "react-modal";
+import 'bootstrap/dist/css/bootstrap.css';
+import Button from "@mui/material/Button";
 
-const ZoneList = ({ villeId }) => {
+
+
+export default function ZoneList({ cityId })  {
     const [zones, setZones] = useState([]);
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [selectedZone, setSelectedZone] = useState(null);
-    const [cities, setCities] = useState([]);
+    const [villes, setVilles] = useState([]);
+    const [zoneName, setZoneName] = useState('');
+    const [zoneCity, setZoneCity] = useState('');
+
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -15,12 +22,12 @@ const ZoneList = ({ villeId }) => {
             setZones(result.data);
         };
         fetchData();
-    }, [villeId]);
+    }, [cityId]);
 
     useEffect(() => {
         const fetchCities = async () => {
             const result = await axios(`/api/villes`);
-            setCities(result.data);
+            setVilles(result.data);
         };
         fetchCities();
     }, []);
@@ -39,76 +46,154 @@ const ZoneList = ({ villeId }) => {
     };
 
     const handleCloseModal = () => {
-        setSelectedZone(null);
-        setModalIsOpen(false);
+        setModalIsOpen(false)
     };
 
-    const handleSave = () => {
-        // TODO: handle save logic
-        handleCloseModal();
+
+
+    const handleEditZone = async (id) => {
+        try {
+            const response = await axios.put(`/api/zones/${id}`, {
+                nom: zoneName,
+                ville: {
+                    id: zoneCity
+                }
+            })
+            const updatedZones = zones.map((zone) => {
+                if (zone.id === id) {
+                    return response.data;
+                }else{
+                    return zone;
+                }
+            });
+            setZones(updatedZones);
+            setModalIsOpen(false);
+            loadzones();
+        } catch (error) {
+            console.error(error);
+        }
     };
+
+
+    const loadzones=async ()=>{
+        const res=await axios.get(`/api/zones`);
+        setZones(res.data);
+    }
+
 
     return (
-        <div>
-            <h2>Zones</h2>
-            <Link to={`/ajouter-zone`} className="btn btn-primary">
-                Add Zone
-            </Link>
-            <table className="table">
-                <thead>
+        <div> 
+            <div className="container bg-body mt-3 shadow-lg p-5">
+        <div className="row">
+          <div className="col-md-12">
+            <div className="table-responsive">
+                <table className="table mt-5 text-center">
+                    <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Name</th>
-                        <th>City</th>
+                        <th>Zone</th>
+                        <th>Ville</th>
                         <th>Actions</th>
                     </tr>
-                </thead>
-                <tbody>
+                    </thead>
+                    <tbody>
                     {zones.map((zone) => (
                         <tr key={zone.id}>
                             <td>{zone.id}</td>
                             <td>{zone.nom}</td>
                             <td>{zone.ville && zone.ville.nom}</td>
                             <td>
-                                <button className="btn btn-danger" onClick={() => handleDelete(zone.id)}>
-                                    Delete
-                                </button>
-                                <button className="btn btn-primary" onClick={() => handleOpenModal(zone)}>
-                                    Edit
-                                </button>
+
+                                <Button variant="contained" color="error"  onClick={() => handleDelete(zone.id)}>
+                                    Supprimer
+                                </Button>
+                                <Button variant="contained" color="info" sx={{ ml:1 }} onClick={() => handleOpenModal(zone)}>
+                                    Modifier
+                                </Button>
                             </td>
                         </tr>
                     ))}
-                </tbody>
-            </table>
-            <Modal isOpen={modalIsOpen} onRequestClose={handleCloseModal}>
-                <h3>Modification de la zone</h3>
-                <ul>
-                    <li>
-                        <label>Nom de la zone:</label>
-                        <input type="text" value={selectedZone && selectedZone.name} />
-                    </li>
-                    <li>
-                        <label>Ville:</label>
-                        <select value={selectedZone && selectedZone.ville && selectedZone.ville.id}>
-                            {cities.map((ville) => (
-                                <option key={ville.id} value={ville.id}>
-                                    {ville.nom}
-                                </option>
-                            ))}
-                        </select>
-                    </li>
-                </ul>
-                <button className="btn btn-primary" onClick={handleCloseModal}>
-                    Annuler
-                </button>
-                <button className="btn btn-success" onClick={handleSave}>
-                    Sauvegarder
-                </button>
+                    </tbody>
+                </table>
+                <Button variant="primary" size="lg" href="/ajouter-zone" style={{backgroundColor:"#3385ff"}}>ajouter Zone</Button> 
+            </div>
+            </div>
+            </div>
+            </div>
+            <Modal
+                isOpen={modalIsOpen}
+                onRequestClose={handleCloseModal}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+
+                style={{
+                    overlay: {
+                        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                        zIndex: 1000
+                    },
+                    content: {
+                        top: '50%',
+                        left: '50%',
+                        right: 'auto',
+                        bottom: 'auto',
+                        marginRight: '-50%',
+                        transform: 'translate(-50%, -50%)',
+                        backgroundColor: '#ff6666',
+                        borderRadius: '10px',
+                        boxShadow: '20px 30px 25px rgba(0, 0, 0, 0.2)',
+                        padding: '20px',
+                        width:'550px',
+                        height:'540px'
+                    }
+                }}
+            >
+                <div className="card">
+                    <div className="card-body" style={{backgroundColor:"#e6e6e6"}}>
+                        <h5 className="card-title" id="modal-modal-title">Modifier la Zone</h5>
+                        <form>
+                            <div className="mb-3">
+                                <label htmlFor="user-nom" className="form-label">Zone:</label>
+                                <input type="text" className="form-control" id="user-nom" value={zoneName} onChange={(e) => setZoneName(e.target.value)} />
+                            </div>
+                            <div className="mb-3">
+                                <label htmlFor="user-prenom" className="form-label">ville:</label>
+                                <select
+                                    value={zoneCity}
+                                    onChange={(e) => setZoneCity(e.target.value)}
+                                    style={{
+                                        backgroundColor: "#f2f2f2",
+                                        border: "none",
+                                        borderRadius: "4px",
+                                        color: "#555",
+                                        fontSize: "16px",
+                                        padding: "8px 12px",
+                                        width: "100%",
+                                        marginBottom: "200px"
+                                    }}
+                                >
+                                    {villes.map((ville) => (
+                                        <option key={ville.id} value={ville.id}>
+                                            {ville.nom}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+
+
+                        </form>
+                        <div className="d-flex justify-content-center mt-3">
+                            <Button variant="contained" color="error"  onClick={handleCloseModal}>
+                                Annuler
+                            </Button>
+                            <Button variant="contained" color="info" sx={{ ml:1 }} onClick={() => handleEditZone(selectedZone.id)}>
+                                Enregistrer
+                            </Button>
+                        </div>
+                    </div>
+                </div>
             </Modal>
 
         </div>
     );
 };
 
-export default ZoneList

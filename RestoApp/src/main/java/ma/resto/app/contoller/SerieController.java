@@ -16,7 +16,7 @@ import ma.resto.app.entites.Serie;
 import ma.resto.app.service.SerieService;
 
 @RestController
-@RequestMapping(value = "api/serie")
+@RequestMapping(value = "api/series")
 public class SerieController {
 	@Autowired
 	private SerieService serieService;
@@ -41,7 +41,7 @@ public class SerieController {
 		return serieService.findById(Integer.parseInt(id));
 	}
 
-	@GetMapping(value = "/")
+	@GetMapping(value = "")
 	public List<Serie> findAll() {
 		return serieService.findAll();
 	}

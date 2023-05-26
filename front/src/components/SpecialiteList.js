@@ -1,46 +1,46 @@
 import React,{useState,useEffect} from "react";
 import 'bootstrap/dist/css/bootstrap.css';
+import Button from '@mui/material/Button';
 import axios from 'axios'
 import Modal from "react-modal";
-import Button from "@mui/material/Button";
 
-export default function VilleList(){
-    const [villes, setVilles] = useState([]);
-    const [villeNom, setVilleNom] = useState('');
-    const [selectedVille, setSelectedVille] = useState(null);
+
+
+
+export default function SpecialiteList(){
+    const [specialites, setSpecialites] = useState([]);
+    const [specialiteNom, setSpecialiteNom] = useState('');
+    const [selectedSpecialite, setSelectedSpecialite] = useState(null);
     const [modalIsOpen, setModalIsOpen] = useState(false);
 
 
 
-
     useEffect(() => {
-        const getville = async () => {
-            const res = await axios.get('/api/villes');
+        const getSpecialite = async () => {
+            const res = await axios.get('/api/specialites');
             const getdata = res.data;
-            setVilles(getdata);
-            loadVilles();
+            setSpecialites(getdata);
+            loadSpecialites();
         }
-        getville();
+        getSpecialite();
     }, []);
 
-
-
-    const loadVilles=async ()=>{
-        const res=await axios.get("/api/villes");
-        setVilles(res.data);
+    const loadSpecialites=async ()=>{
+        const res=await axios.get("/api/specialites");
+        setSpecialites(res.data);
     }
 
-    const handleDelete = (villeId) => {
+    const handleDelete = (specialiteId) => {
         if (window.confirm("Are you sure you want to delete this Item?")) {
-            axios.delete(`/api/villes/${villeId}`).then(() => {
-                setVilles(villes.filter((ville) => ville.id !== villeId));
+            axios.delete(`/api/specialites/${specialiteId}`).then(() => {
+                setSpecialites(specialites.filter((specialite) => specialite.id !== specialiteId));
             });
         }
     };
 
 
-    const handleOpenModal = (ville) => {
-        setSelectedVille(ville);
+    const handleOpenModal = (specialite) => {
+        setSelectedSpecialite(specialite);
         setModalIsOpen(true);
     };
 
@@ -50,22 +50,22 @@ export default function VilleList(){
 
 
 
-    const handleEditVille = async (id) => {
+    const handleEditSpecialite = async (id) => {
         try {
-            const response = await axios.put(`/api/villes/${id}`, {
-                nom: villeNom,
+            const response = await axios.put(`/api/specialites/${id}`, {
+                nom: specialiteNom,
 
             })
-            const updatedVilles = villes.map((ville) => {
-                if (ville.id === id) {
+            const updatedSpecialites = specialites.map((specialite) => {
+                if (specialite.id === id) {
                     return response.data;
                 }else{
-                    return ville;
+                    return specialite;
                 }
             });
-            setVilles(updatedVilles);
+            setSpecialites(updatedSpecialites);
             setModalIsOpen(false);
-            loadVilles();
+            loadSpecialites();
         } catch (error) {
             console.error(error);
         }
@@ -74,31 +74,30 @@ export default function VilleList(){
 
 
     return (
-        
         <div>
- 
             <div className="container bg-body mt-3 shadow-lg p-5">
             <div className="row">
-              <div className="col-md-12">
-             
+              <div className="col-md-12"></div>
+            <div className="table-responsive">
                 <table className="table mt-5 text-center">
                     <thead>
                     <tr>
                         <th scope="col">id</th>
-                        <th scope="col">ville</th>
+                        <th scope="col">specialite</th>
                         <th scope="col">Actions</th>
 
                     </tr>
                     </thead>
                     <tbody>
-                    {villes.map((ville,index)=>(
+                    {specialites.map((specialite,index)=>(
                         <tr key={index}>
-                            <th scope="row">{ville.id}</th>
-                            <td>{ville.nom}</td>
+                            <th scope="row">{specialite.id}</th>
+                            <td>{specialite.nom}</td>
                             <td>
 
-                                <Button variant="contained" color="error" sx={{ ml:2 }}onClick={() => handleDelete(ville.id)}>delete</Button>
-                                <Button variant="contained" color="info"  onClick={() => handleOpenModal(ville)} >Modifier</Button>
+                            <Button variant="contained" color="error" sx={{ ml:2 }}onClick={() => handleDelete(specialite.id)}>delete</Button>
+                                <Button variant="contained" color="info"  onClick={() => handleOpenModal(specialite)} >Modifier</Button>
+
 
                             </td>
                         </tr>
@@ -106,13 +105,11 @@ export default function VilleList(){
 
                     </tbody>
                 </table>
-                <Button variant="primary" size="lg" href="/ajouter-ville" style={{backgroundColor:"#3385ff"}}>ajouter ville</Button> 
+                </div>
+                </div>
+                
+                <Button variant="primary" size="lg" href="/ajouter-specialite" style={{backgroundColor:"#3385ff"}}>Ajouter Specialite</Button> 
             </div>
-            </div>
-            </div>
-        
-          
-            
 
             <Modal
                 isOpen={modalIsOpen}
@@ -136,19 +133,14 @@ export default function VilleList(){
                         borderRadius: '10px',
                         boxShadow: '20px 30px 25px rgba(0, 0, 0, 0.2)',
                         padding: '20px',
-                        width:'600px',
-                        height:'450px'
-
-
-
-
-
+                        width:'550px',
+                        height:'510px'
                     }
                 }}
             >
                 <div className="card">
-                    <div className="card-body" style={{backgroundColor:"#e6e6e6"}}>
-                        <h5 className="card-title" id="modal-modal-title">Update Ville</h5>
+                    <div className="card-body">
+                        <h5 className="card-title" id="modal-modal-title">Modifier Specialite</h5>
                         <form  style={{
                                         backgroundColor: "#f2f2f2",
                                         border: "none",
@@ -157,11 +149,10 @@ export default function VilleList(){
                                         fontSize: "16px",
                                         padding: "8px 12px",
                                         width: "100%",
-                                        marginBottom: "200px"
-                                    }}>
+                                        marginBottom: "240px"}}>
                             <div className="mb-3">
-                                <label htmlFor="user-nom" className="form-label">Ville:</label>
-                                <input type="text" className="form-control" id="user-nom" value={villeNom} onChange={(e) => setVilleNom(e.target.value)} />
+                                <label htmlFor="user-nom" className="form-label">Specialite:</label>
+                                <input type="text" className="form-control" id="user-nom" value={specialiteNom} onChange={(e) => setSpecialiteNom(e.target.value)} />
                             </div>
 
                         </form>
@@ -169,7 +160,7 @@ export default function VilleList(){
                             <Button variant="contained" color="error" onClick={handleCloseModal}>
                                 Annuler
                             </Button>
-                            <Button variant="contained" color="info" sx={{ ml:1 }} onClick={() => handleEditVille(selectedVille.id)}>
+                            <Button variant="contained" color="info" sx={{ ml:1 }} onClick={() => handleEditSpecialite(selectedSpecialite.id)}>
                                 Sauvegarder
                             </Button>
                         </div>

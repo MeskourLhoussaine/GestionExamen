@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.websocket.server.PathParam;
 import ma.resto.app.entites.Resto;
 import ma.resto.app.service.RestoService;
 
@@ -31,9 +32,9 @@ public class RestoController {
 		return restoService.update(o);
 	}
 
-	@DeleteMapping(value = "/delete")
-	public void delete(@RequestBody Resto o) {
-		restoService.delete(o);
+	@DeleteMapping(value = "/{id}")
+	public void delete(@PathVariable String id) {
+		restoService.findById(Integer.parseInt(id));
 	}
 
 	@GetMapping(value = "/{id}")
@@ -41,7 +42,7 @@ public class RestoController {
 		return restoService.findById(Integer.parseInt(id));
 	}
 
-	@GetMapping(value = "/")
+	@GetMapping(value = "")
 	public List<Resto> findAll() {
 		return restoService.findAll();
 	}

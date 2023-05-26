@@ -30,12 +30,12 @@ public class VilleController {
 		return villeService.save(o);
 	}
 
-	/*
-	@PutMapping(value = "/{id}")
+	
+	@PostMapping(value = "/save")
 	public Ville update(@RequestBody Ville o) {
-		return villeService.update(o);
+		return villeService.save(o);
 	}
-	*/
+	
 
 	  @PutMapping("/{id}")
 	    public Ville update(@PathVariable int id, @RequestBody Ville ville) {

@@ -28,6 +28,9 @@ const ZoneForm = ({ onZoneAdded }) => {
     };
 
     return (
+        <div className="container bg-body mt-3 shadow-lg p-5">
+        <div className="row">
+          <div className="col-md-12">
         <form onSubmit={handleSubmit}>
             <div className="form-group">
                 <label htmlFor="nom">Name:</label>
@@ -47,7 +50,7 @@ const ZoneForm = ({ onZoneAdded }) => {
                     value={villeId}
                     onChange={(event) => setVilleId(event.target.value)}
                 >
-                    <option value="">Select a city </option>
+                    <option value="">Selecctioner une Ville </option>
                     {villes && villes.map((ville ) =>(
                         <option key={ville.id} value={ville.id}>
                             {ville.nom}
@@ -59,6 +62,9 @@ const ZoneForm = ({ onZoneAdded }) => {
                 Add Zone
             </button>
         </form>
+        </div>
+        </div>
+        </div>
     );
 };
 
