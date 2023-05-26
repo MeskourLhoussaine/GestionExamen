@@ -48,7 +48,7 @@ export default function RestaurantList() {
 
     useEffect(() => {
         const fetchusers = async () => {
-            const result = await axios(`/api/controller/users/`);
+            const result = await axios(`/api/users`);
             setUsers(result.data);
         };
         fetchusers();
