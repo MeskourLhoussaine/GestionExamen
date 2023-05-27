@@ -41,7 +41,7 @@ public class RestoService implements IMetier<Resto> {
 
 	@Override
 	public void delete(int id) {
-		// TODO Auto-generated method stub
+		this.restoRepository.findById(id);
 		
 	}
 

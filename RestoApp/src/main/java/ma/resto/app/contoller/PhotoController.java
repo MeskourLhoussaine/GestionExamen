@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,9 +31,10 @@ public class PhotoController {
 		return photoService.update(o);
 	}
 
-	@DeleteMapping(value = "/delete")
-	public void delete(@RequestBody Photo o) {
-		photoService.delete(o);
+	@DeleteMapping(value = "/{id}")
+	public void delete(@PathVariable(required = true) String id) {
+		Photo ph = photoService.findById(Integer.parseInt(id));
+		photoService.delete(ph);
 	}
 
 	@GetMapping(value = "/{id}")

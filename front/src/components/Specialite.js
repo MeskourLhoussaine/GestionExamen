@@ -28,7 +28,7 @@ export default function Specialite() {
     const onSubmit = async (e) => {
         e.preventDefault();
         if (!nom) {
-            alert("Please enter a specialite name");
+            alert("enter la specialite ");
         } else {
             await axios.post("/api/specialites/save", specialite);
             setNom("");

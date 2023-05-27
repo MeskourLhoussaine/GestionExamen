@@ -3,6 +3,7 @@ package ma.resto.app.contoller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,12 +17,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.springframework.web.bind.annotation.RequestBody;
 
-import ma.resto.app.entites.Ville;
+
 import ma.resto.app.entites.Zone;
 import ma.resto.app.service.ZoneService;
 
 @RestController
 @RequestMapping(value = "api/zones")
+@CrossOrigin
 public class ZoneController {
 	@Autowired
 	private ZoneService zoneService;
@@ -59,6 +61,14 @@ public class ZoneController {
 	public void delete(@PathVariable int id) {
 		this.zoneService.findById(id);
 	}
+	
+	@DeleteMapping("/delete/{id}")
+	public void delete(@PathVariable(required = true) String id) {
+		Zone s = zoneService.findById(Integer.parseInt(id));
+		zoneService.delete(s);
+	}
+
+
 
 	@GetMapping(value = "/{id}")
 	public Zone findById(@PathVariable String id) {

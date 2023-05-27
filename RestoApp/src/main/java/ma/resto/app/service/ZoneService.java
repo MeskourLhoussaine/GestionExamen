@@ -48,7 +48,7 @@ public class ZoneService implements IMetier<Zone> {
 
 	@Override
 	public void delete(Zone o) {
-		// TODO Auto-generated method stub
+		this.zoneRepository.delete(o);
 		
 	}
 

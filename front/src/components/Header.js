@@ -11,7 +11,7 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 
 function Header() {
     return ( 
-      
+      <header>
         <Nav variant="tabs" defaultActiveKey="/home" className="navbar navbar-expand-lg navbar-light bg-danger" >
         <Nav.Item >
         <NavLink className="nav-link" to="/" activeClassName="active" style={{color:"#000000"}}>
@@ -57,11 +57,8 @@ function Header() {
       <Dropdown.Item href="/RestaurantByZoneV" style={{backgroundColor:"#b2474c"}}> Restaurant par Zone et Ville</Dropdown.Item>
     </DropdownButton>
 
-    
-  
-   
       </Nav>
-      
+      </header>
     );
   }
   export default Header;

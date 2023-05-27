@@ -1,4 +1,7 @@
 
+
+
+
 import axios from 'axios';
 import React,{useState,useEffect} from "react";
 import Modal from "react-modal";
@@ -6,7 +9,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import ReactPaginate from 'react-paginate';
 import moment from "moment";
 import Button from "@mui/material/Button";
-
+import { Link, useParams } from "react-router-dom";
 
 
 
@@ -34,6 +37,7 @@ export default function RestaurantList() {
     const itemsPerPage = 4;
     const offset = pageNumber * itemsPerPage;
     const currentPageItems = restaurants.slice(offset, offset + itemsPerPage);
+ 
 
 
 
@@ -90,8 +94,8 @@ export default function RestaurantList() {
         setRestaurantSerie(restaurant.serie.id);
         setRestaurantZone(restaurant.zone.id);
         setModalIsOpen(true);
-        //setSelectedRestaurant(restaurant);
-        // setModalIsOpen(true);
+        setSelectedRestaurant(restaurant);
+         setModalIsOpen(true);
     };
 
     const handleCloseModal = () => {
@@ -157,7 +161,6 @@ export default function RestaurantList() {
                     <thead className="bg-secondary text-white" >
                     <tr>
                         <th>ID</th>
-                        <th>Photos</th>
                         <th>Nom</th>
                         <th>Latitude</th>
                         <th>Longitude</th>
@@ -173,28 +176,33 @@ export default function RestaurantList() {
                     {currentPageItems.map((restaurant) => (
                         <tr key={restaurant.id}>
                             <td style={{ padding:"10px" }}>{restaurant.id}</td>
-                            <td style={{ maxWidth: "80px" }}>
-                                <img src={restaurant.photo} alt="Restaurant" style={{ maxWidth: "70%" ,borderRadius:"10px"}} />
-                            </td>
+                           
                             <td style={{ padding:"10px" }}>{restaurant.nom}</td>
-                            <td style={{ padding:"10px" }}>{restaurant.latitude}</td>
-                            <td style={{ padding:"10px" }}>{restaurant.longitude}</td>
+                            <td style={{ padding:"10px" ,maxWidth: "100px", overflowX: "scroll",  whiteSpace: "nowrap" }}>{restaurant.latitude}</td>
+                            <td style={{ padding:"10px" ,maxWidth: "100px", overflowX: "scroll",  whiteSpace: "nowrap" }}>{restaurant.longitude}</td>
                             <td style={{ padding: "10px", maxWidth: "100px", overflowX: "scroll",  whiteSpace: "nowrap" }}>
                                 {restaurant.adresse}
                             </td>
                             <td style={{ padding:"10px" }}>
-                                {moment(restaurant.dateOuverture).format("YYYY-MM-DD HH:mm")}
+                                {moment(restaurant.dateOuverture).format(" HH:mm")}
                             </td>
                             <td style={{ padding:"10px" }}>
-                                {moment(restaurant.dateFermeture).format("YYYY-MM-DD HH:mm")}
+                                {moment(restaurant.dateFermeture).format(" HH:mm")}
                             </td>
                             <td style={{ padding:"10px" }}>{restaurant.serie && restaurant.serie.nom}</td>
                             <td style={{ padding:"10px" }}>{restaurant.zone && restaurant.zone.nom}</td>
                             <td>
-                            <Button variant="contained" color="error" sx={{ ml:2 }}onClick={() => handleDelete(restaurant.id)}>delete</Button>
-                             <Button variant="contained" color="info"  onClick={() =>  handleEditRestaurant (restaurant)} >Modifier</Button>
-                                
+                            <Button variant="contained" color="error" sx={{ ml:2 }}onClick={() => handleDelete(restaurant.id)}>supprimer</Button>
+                             <Button variant="contained" color="info"  onClick={() =>   handleOpenModal (restaurant)} >Modifier</Button>
+
+                                <Link
+                  className="btn btn-warning ml-2"
+                  to={`/mapresto/${restaurant.id}`}
+                >
+                  Map
+                </Link> 
                             </td>
+                            
                         </tr>
                     ))}
                     </tbody>
@@ -234,22 +242,22 @@ export default function RestaurantList() {
                         bottom: 'auto',
                         marginRight: '-50%',
                         transform: 'translate(-50%, -50%)',
-                        backgroundColor: '#fff',
+                        backgroundColor: '#ff6666',
                         borderRadius: '10px',
                         boxShadow: '20px 30px 25px rgba(0, 0, 0, 0.2)',
                         padding: '20px',
                         width: '100%',
-                        maxWidth: '700px',
-                        height: 'auto',
+                        maxWidth: '800px',
+                        height: '1000px',
                         maxHeight: '90%',
                         overflow: 'auto'
                     }
                 }}
             >
-                <div className="card" >
+                <div className="card">
                     <div className="card-body" >
                         <h5 className="card-title" id="modal-modal-title">Modifier Restaurant</h5>
-                        <form>
+                        <form >
                             <div className="mb-3">
                                 <label htmlFor="restaurant-nom" className="form-label">Nom:</label>
                                 <input type="text" className="form-control" id="user-nom" value={restaurantnom} onChange={(e) => setRestaurantNom(e.target.value)} required/>
@@ -270,11 +278,11 @@ export default function RestaurantList() {
                                 <input type="text" className="form-control" id="user-password" value={restaurantAdresse} onChange={(e) => setRestaurantAdresse(e.target.value)} />
                             </div>
                             <div className="mb-3">
-                                <label htmlFor="restaurant-dateopen" className="form-label">date open:</label>
+                                <label htmlFor="restaurant-dateopen" className="form-label">date overture:</label>
                                 <input type="datetime-local" className="form-control" id="user-password" value={restaurantdateopen} onChange={(e) => setRestaurantDateopen(e.target.value)} />
                             </div>
                             <div className="mb-3">
-                                <label htmlFor="restaurant-dateclose" className="form-label">date close:</label>
+                                <label htmlFor="restaurant-dateclose" className="form-label">date fermeteur:</label>
                                 <input type="datetime-local" className="form-control" id="user-password" value={restaurantdateclose} onChange={(e) => setRestaurantDateclose(e.target.value)} />
                             </div>
                             <div className="mb-3">
@@ -295,7 +303,8 @@ export default function RestaurantList() {
                                             fontSize: "16px",
                                             padding: "8px 12px",
                                             width: "100%",
-                                            marginBottom: "12px"
+                                            marginBottom: "12px",
+                                           
                                         }}
                                     >  <option value="">Selectioner la  zone </option>
 
@@ -320,7 +329,8 @@ export default function RestaurantList() {
                                             fontSize: "16px",
                                             padding: "8px 12px",
                                             width: "100%",
-                                            marginBottom: "12px"
+                                            marginBottom: "12px",
+                                            
                                         }}
                                     >  <option value="">Selectioner Serie</option>
 
@@ -351,3 +361,114 @@ export default function RestaurantList() {
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+
+
+import axios from "axios";
+import * as React from "react";
+import { useState, useEffect } from "react";
+import "../../node_modules/bootstrap/dist/css/bootstrap.css";
+import { Link, useParams } from "react-router-dom";
+
+
+const RestaurantList = () => {
+  const [Restaurants, setRestaurants] = useState([]);
+
+  useEffect(() => {
+    axios.get("http://localhost:8082/api/restos").then((response) => {
+      setRestaurants(response.data);
+    });
+  }, []);
+
+  const handleDelete = (id) => {
+    if (window.confirm("Are you sure you want to delete this restaurant ?")) {
+      axios
+        .delete(`http://localhost:8082/api/restos/delete/${id}`)
+        .then(() => {
+          setRestaurants(
+            Restaurants.filter((restaurant) => restaurant.id !== id)
+          );
+        });
+    }
+  };
+
+  return (
+    <div>
+      <h2>Restaurant List</h2>
+      <a class="btn btn-success" href="/ajouter-restaurant">
+        Ajouter restaurant
+      </a>
+      <table class="table table-bordered ">
+        <thead class="table-dark">
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Nom</th>
+            <th scope="col">Adresse</th>
+            <th scope="col">langitude</th>
+            <th scope="col">latitude</th>
+            <th scope="col">Rang</th>
+            <th scope="col">serie</th>
+            <th scope="col">zone</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody class="table-group-divider ">
+          {Restaurants.map((Restaurant) => (
+            <tr key={Restaurant.id}>
+              <td>{Restaurant.id}</td>
+              <td>{Restaurant.nom}</td>
+              <td>{Restaurant.adresse}</td>
+              <td>{Restaurant.longtitude}</td>
+              <td>{Restaurant.lattitude}</td>
+              <td>{Restaurant.rang}</td>
+              <td>{Restaurant.serie && Restaurant.serie.nom}</td>
+              <td>{Restaurant.zone && Restaurant.zone.nom}</td>
+              <td>
+                <Link
+                  className="btn btn-warning l-2m"
+                  to={`/editresto/${Restaurant.id}`}
+                >
+                  Edit
+                </Link>
+                <b> </b>
+                <button
+                  type="button"
+                  class="btn btn-danger"
+                  onClick={() => handleDelete(Restaurant.id)}
+                >
+                  Delete
+                </button>
+
+                  <Link
+                  className="btn btn-warning ml-2"
+                  to={`/mapresto/${Restaurant.id}`}
+                >
+                  Map
+                </Link>
+                
+                
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+export default RestaurantList;
+*/

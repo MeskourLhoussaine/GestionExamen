@@ -144,7 +144,7 @@ export default function SerieList(){
             >
                 <div className="card">
                     <div className="card-body">
-                        <h5 className="card-title" id="modal-modal-title">Update Serie</h5>
+                        <h5 className="card-title" id="modal-modal-title">Modifier Serie</h5>
                         <form style={{
                                         backgroundColor: "#f2f2f2",
                                         border: "none",

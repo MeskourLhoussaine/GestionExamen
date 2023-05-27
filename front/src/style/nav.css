@@ -10,7 +10,7 @@
 :root {
 	--mainColor: #dc3545;
 	--mainColorLight: #5767aa;
-	--secondaryColor: #db2b39;
+	--secondaryColor: #000000;
 	--textColor: #eee;
 }
 
@@ -19,6 +19,7 @@ header {
 	align-items: center;
 	justify-content: space-between;
 	height: 50px;
+	width: auto;
 	padding: 0 2rem;
 	background-color: var(--mainColor);
 	color: var(--textColor);

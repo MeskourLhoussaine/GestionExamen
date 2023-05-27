@@ -31,7 +31,7 @@ export default function VilleList(){
     }
 
     const handleDelete = (villeId) => {
-        if (window.confirm("Are you sure you want to delete this Item?")) {
+        if (window.confirm("Êtes-vous sûr de bien vouloir supprimer cet élément?")) {
             axios.delete(`/api/villes/${villeId}`).then(() => {
                 setVilles(villes.filter((ville) => ville.id !== villeId));
             });
@@ -148,7 +148,7 @@ export default function VilleList(){
             >
                 <div className="card">
                     <div className="card-body" style={{backgroundColor:"#e6e6e6"}}>
-                        <h5 className="card-title" id="modal-modal-title">Update Ville</h5>
+                        <h5 className="card-title" id="modal-modal-title">Modifier la  Ville</h5>
                         <form  style={{
                                         backgroundColor: "#f2f2f2",
                                         border: "none",

@@ -95,7 +95,7 @@ export default function SpecialiteList(){
                             <td>{specialite.nom}</td>
                             <td>
 
-                            <Button variant="contained" color="error" sx={{ ml:2 }}onClick={() => handleDelete(specialite.id)}>delete</Button>
+                            <Button variant="contained" color="error" sx={{ ml:2 }}onClick={() => handleDelete(specialite.id)}>Supprimer</Button>
                                 <Button variant="contained" color="info"  onClick={() => handleOpenModal(specialite)} >Modifier</Button>
 
 

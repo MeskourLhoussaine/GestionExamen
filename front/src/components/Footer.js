@@ -132,7 +132,7 @@ export default function Footer() {
       <MDBContainer className='p-4 pb-0'>
       <MDBRow>
           <MDBCol lg='6' md='12' className='mb-4 mb-md-0'>
-            <h5 className='text-uppercase'>Footer Content</h5>
+            <h5 className='text-uppercase'>About Our App</h5>
 
             <p>
             Our Restaurant Location App helps you find the nearest Restaurant in your area quickly and easily.

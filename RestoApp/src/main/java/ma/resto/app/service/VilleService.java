@@ -10,39 +10,44 @@ import ma.resto.app.entites.Ville;
 import ma.resto.app.repository.VilleRepository;
 
 @Service
-public class VilleService implements IMetier<Ville> {
+public  class VilleService implements IMetier<Ville> {
+	
 	@Autowired
 	private VilleRepository villeRepository;
-
 	@Override
 	public Ville save(Ville o) {
+		// TODO Auto-generated method stub
 		return this.villeRepository.save(o);
 	}
 
 	@Override
 	public Ville update(Ville o) {
+		// TODO Auto-generated method stub
 		return this.villeRepository.save(o);
 	}
 
 	@Override
-	public void delete(int id) {
-		this.villeRepository.deleteById(id);
+	public void delete(Ville o) {
+		this.villeRepository.delete(o);
+		
 	}
 
 	@Override
 	public Ville findById(int id) {
+		// TODO Auto-generated method stub
 		return this.villeRepository.findById(id);
 	}
 
 	@Override
 	public List<Ville> findAll() {
+		// TODO Auto-generated method stub
 		return this.villeRepository.findAll();
 	}
-
+	
+	
 	@Override
-	public void delete(Ville o) {
-		// TODO Auto-generated method stub
-		
+	public void delete(int id) {
+		this.villeRepository.deleteById(id);
 	}
 
 	

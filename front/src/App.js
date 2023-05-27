@@ -17,8 +17,11 @@ import Header from "./components/Header";
 
 import Footer from "./components/Footer";
 import 'bootstrap/dist/css/bootstrap.min.css';
-
 import Navbar from "./components/Navbar";
+import GoogleMapComponent from "./components/MapInfo"
+
+
+
 
 
 function App() {
@@ -40,6 +43,10 @@ function App() {
           <Route path="/ajouter-serie" element={<Serie />} />
           <Route path="/specialite" element={<SpecialiteList />} />
           <Route path="/ajouter-specialite" element={<Specialite />} />
+          <Route path="/mapresto/:id" element={<GoogleMapComponent />} />
+
+          
+
         </Routes>
       </div>
       <Footer />

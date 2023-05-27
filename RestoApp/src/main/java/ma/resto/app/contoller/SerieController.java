@@ -31,9 +31,10 @@ public class SerieController {
 		return serieService.update(o);
 	}
 
-	@DeleteMapping(value = "/delete")
-	public void delete(@RequestBody Serie o) {
-		serieService.delete(o);
+	@DeleteMapping(value = "/{id}")
+	public void delete(@PathVariable(required = true) String id) {
+		Serie s=serieService.findById(Integer.parseInt(id));
+		serieService.delete(s);
 	}
 
 	@GetMapping(value = "/{id}")

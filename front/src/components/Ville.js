@@ -67,7 +67,7 @@ export default function Ville() {
             onChange={(e) => onInputChange(e)}
           />
           <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
-            Add
+            Ajouter
           </Button>
         </form>
       </Container>

@@ -1,8 +1,9 @@
 package ma.resto.app.contoller;
-//prime react
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +22,7 @@ import ma.resto.app.service.VilleService;
 
 @RestController
 @RequestMapping(value = "api/villes")
+@CrossOrigin
 public class VilleController {
 	@Autowired
 	private VilleService villeService;
@@ -47,10 +49,14 @@ public class VilleController {
 	        return null;
 	    }
 
-	@DeleteMapping(value = "/{id}")
-	public void delete(@PathVariable int id) {
-		villeService.findById(id);
-	}
+
+ 
+	  @DeleteMapping("/{id}")
+		public void delete(@PathVariable(required = true) String id) {
+			Ville s = villeService.findById(Integer.parseInt(id));
+			villeService.delete(s);
+		}
+
 
 	@GetMapping(value = "/{id}")
 	public Ville findById(@PathVariable String id) {
@@ -112,9 +118,9 @@ public class VilleController {
 		}
 		return null;
 	}
-	
+	/*
 	@GetMapping(value = "/{villeNom}/zones/{zoneNom}/restaurants/{id}/itineraire")
 	public Resto findRestoByItineraire(@PathVariable String villeNom, @PathVariable String zoneNom, @RequestParam(name = "depart") String depart) {
 		return null;
-	}
+	}*/
 }
